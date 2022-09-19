@@ -95,10 +95,16 @@ set(HIDAPI_NEED_EXPORT_LIBUDEV FALSE)
 set(HIDAPI_NEED_EXPORT_ICONV FALSE)
 
 if(WIN32)
+    target_include_directories(hidapi_include INTERFACE
+        "$<BUILD_INTERFACE:${PROJECT_ROOT}/windows>"
+    )
     add_subdirectory("${PROJECT_ROOT}/windows" windows)
     set(EXPORT_ALIAS winapi)
     list(APPEND EXPORT_COMPONENTS winapi)
 elseif(APPLE)
+    target_include_directories(hidapi_include INTERFACE
+        "$<BUILD_INTERFACE:${PROJECT_ROOT}/mac>"
+    )
     add_subdirectory("${PROJECT_ROOT}/mac" mac)
     set(EXPORT_ALIAS darwin)
     list(APPEND EXPORT_COMPONENTS darwin)
@@ -141,9 +147,6 @@ else()
             set(HIDAPI_NEED_EXPORT_THREADS TRUE)
             if(NOT TARGET usb-1.0)
                 set(HIDAPI_NEED_EXPORT_LIBUSB TRUE)
-            endif()
-            if(NOT HIDAPI_NO_ICONV AND NOT ANDROID AND NOT CMAKE_VERSION VERSION_LESS 3.11)
-                set(HIDAPI_NEED_EXPORT_ICONV TRUE)
             endif()
         endif()
     elseif(NOT TARGET hidapi_hidraw)
