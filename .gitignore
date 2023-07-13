@@ -6,6 +6,7 @@ ar-lib
 autom4te.cache/
 config.*
 configure
+configure~
 compile
 depcomp
 install-sh
@@ -20,3 +21,12 @@ windows/Makefile.in
 Makefile
 stamp-h1
 libtool
+
+# macOS
+.DS_Store
+
+# Qt Creator
+CMakeLists.txt.user
+
+# doxgen output
+doxygen/html/
